@@ -1,5 +1,5 @@
 #
-# Copyright 2015-2020 Red Hat, Inc.
+# Copyright 2015-2021 Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -12,14 +12,13 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 # Refer to the README and COPYING files for full details of the license
 #
 
-from __future__ import absolute_import
-from __future__ import division
+import copy
+
 import six
 
 
@@ -52,6 +51,8 @@ def protect_passwords(obj):
 
     Accept a dict, list of dicts or nested structure containing these types.
     """
+    # Beware of revealing passwords in unintended places!
+    obj = copy.deepcopy(obj)
     for d, key, value in _walk(obj):
         d[key] = ProtectedPassword(value)
     return obj
