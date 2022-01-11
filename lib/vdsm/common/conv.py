@@ -16,19 +16,3 @@
 #
 # Refer to the README and COPYING files for full details of the license
 #
-
-from __future__ import absolute_import
-from __future__ import division
-
-
-def tobool(s):
-    try:
-        if s is None:
-            return False
-        if type(s) == bool:
-            return s
-        if s.lower() == 'true':
-            return True
-        return bool(int(s))
-    except:
-        return False
